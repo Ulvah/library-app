@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BooklistComponent } from './booklist/booklist.component';
 import { BooktypeComponent } from './booktype/booktype.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { BooktypeComponent } from './booktype/booktype.component';
     HomeComponent,
     PageNotFoundComponent,
     BooklistComponent,
-    BooktypeComponent
+    BooktypeComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,

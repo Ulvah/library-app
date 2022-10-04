@@ -17,15 +17,16 @@ export class BooktypeComponent implements OnInit {
   }
 
   public editBookType (inputBookType : Booktype) {
-
+    console.log('edit booktype');
   }
 
   public deleteBookType (bookType : Booktype) {
+    console.log('delete booktype');
   }
 
 
   public createBookType(){
-
+    console.log('create booktype');
   }
 
 }
