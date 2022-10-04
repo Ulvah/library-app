@@ -9,13 +9,21 @@ import { LanguageComponent } from './language/language.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from './material.module';
+import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BooklistComponent } from './booklist/booklist.component';
+import { BooktypeComponent } from './booktype/booktype.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LanguageComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    BooklistComponent,
+    BooktypeComponent
   ],
   imports: [
     BrowserModule,
