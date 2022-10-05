@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Booktype } from '../model/booktype';
 
+export const BOOKTYPE_DATA = [
+  {typeName: 'Matematica', guid: 'aaa-bbb-ccc-ddd'},
+  {typeName: 'quimico', guid: 'aaa-bbb-ccc-ddd'}
+
+];
+
+
 @Component({
   selector: 'app-booktype',
   templateUrl: './booktype.component.html',
@@ -9,7 +16,7 @@ import { Booktype } from '../model/booktype';
 export class BooktypeComponent implements OnInit {
 
   public displayedColumns: string[] = ['id', 'typeName', 'actions'];
-  public dataSource : Booktype[] = [];
+  public dataSource : Booktype[] = BOOKTYPE_DATA;
 
   constructor() { }
 

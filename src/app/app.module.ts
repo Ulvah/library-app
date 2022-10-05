@@ -14,6 +14,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BooklistComponent } from './booklist/booklist.component';
 import { BooktypeComponent } from './booktype/booktype.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { BooktypeEditComponent } from './booktype-edit/booktype-edit.component';
+import { LanguageEditComponent } from './language-edit/language-edit.component';
+import { LanguageFormComponent } from './language-form/language-form.component';
+import { BooktypeFormComponent } from './booktype-form/booktype-form.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { DialogComponent } from './dialog/dialog.component';
     PageNotFoundComponent,
     BooklistComponent,
     BooktypeComponent,
-    DialogComponent
+    DialogComponent,
+    BooktypeEditComponent,
+    LanguageEditComponent,
+    LanguageFormComponent,
+    BooktypeFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,50 @@
-<p>language works!</p>
+<div>
+  <mat-card class="m-20">
+    <mat-card-header>
+      <mat-card-title>Linguagem do Livro</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <mat-card *ngIf="dataSource?.length == 0">
+        <mat-card-content>
+           Nao ha registro de Linguagem
+        </mat-card-content>
+      </mat-card>
+
+      <table mat-table *ngIf="dataSource.length > 0" [dataSource]="dataSource" class="w-100">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id. </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="languageName">
+          <th mat-header-cell *matHeaderCellDef> Linguagem </th>
+          <td mat-cell *matCellDef="let element"> {{element.languageName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acao </th>
+          <td mat-cell *matCellDef="let element">
+
+            <button (click)="editLanguage(element)" mat-raised-button color="accent" class="mr-10" >Editar</button>
+            <button (click)="deleteLanguage(element)" mat-raised-button color="warn" >Apagar</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+
+    </mat-card-content>
+    <mat-card-actions>
+
+      <a mat-raised-button color="warn" [routerLink]="['/']">Home</a>
+      <a mat-raised-button color="warn" (click)="createLanguage()">Novo Linguagem do livro</a>
+
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+
