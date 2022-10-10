@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { BooktypeEditComponent } from '../booktype-edit/booktype-edit.component';
+import { DialogComponent } from '../dialog/dialog.component';
 import { Booktype } from '../model/booktype';
 
 export const BOOKTYPE_DATA = [
@@ -18,17 +21,24 @@ export class BooktypeComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'typeName', 'actions'];
   public dataSource : Booktype[] = BOOKTYPE_DATA;
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
   public editBookType (inputBookType : Booktype) {
-    console.log('edit booktype');
+    this.dialog.open(BooktypeEditComponent, { disableClose: true, data: { editableBooktype: inputBookType}
+    }).afterClosed().subscribe(resp => {
+      console.log('Editado');
+    });
   }
 
   public deleteBookType (bookType : Booktype) {
-    console.log('delete booktype');
+    this.dialog.open(DialogComponent, { disableClose: true, data: {
+      msg: 'Deseja apagar?', leftButton: 'Cancelar', rightButton: 'OK'
+    }}).afterClosed().subscribe(resp => {
+      console.log('Apagado');
+    });
   }
 
 

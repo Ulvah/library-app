@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Booktype } from '../model/booktype';
+
 
 @Component({
   selector: 'app-booktype-edit',
@@ -7,9 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BooktypeEditComponent implements OnInit {
 
-  constructor() { }
+  public editableBooktype!: Booktype;
+  public actionName: string = 'Editar';
+
+  constructor(private dialogRef: MatDialogRef<BooktypeEditComponent>,
+    @Inject(MAT_DIALOG_DATA) dialogData: any) {
+      if(dialogData.editableBooktype != null){
+        this.editableBooktype = dialogData.editableBooktype;
+      }
+
+      if(dialogData.actionName != null) {
+        this.actionName = dialogData.actionName;
+      }
+     }
 
   ngOnInit(): void {
   }
 
+  public closeModalWindow($event: any){
+    //TODO: handle action -save/cancel
+    //if($event) this.dialogRef.close();
+    this.dialogRef.close($event);
+  }
+
+
 }
+
+
+
+

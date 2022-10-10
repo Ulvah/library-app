@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FooterComponent } from './footer/footer.component';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LanguageComponent } from './language/language.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from './material.module';
 import { HomeComponent } from './home/home.component';
@@ -18,6 +17,7 @@ import { BooktypeEditComponent } from './booktype-edit/booktype-edit.component';
 import { LanguageEditComponent } from './language-edit/language-edit.component';
 import { LanguageFormComponent } from './language-form/language-form.component';
 import { BooktypeFormComponent } from './booktype-form/booktype-form.component';
+
 
 @NgModule({
   declarations: [
@@ -34,13 +34,16 @@ import { BooktypeFormComponent } from './booktype-form/booktype-form.component';
     LanguageEditComponent,
     LanguageFormComponent,
     BooktypeFormComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

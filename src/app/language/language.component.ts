@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
+import { LanguageEditComponent } from '../language-edit/language-edit.component';
 import { Language } from '../model/language';
 
 export const LANGUAGE_DATA = [
@@ -17,17 +20,24 @@ export class LanguageComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'languageName', 'actions'];
   public dataSource : Language[] = LANGUAGE_DATA;
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
   public editLanguage (inputLanguage : Language) {
-    console.log('edit language');
+    this.dialog.open(LanguageEditComponent, { disableClose: true, data: { editableLanguage: inputLanguage}
+    }).afterClosed().subscribe(resp => {
+      console.log('Editado');
+    });
   }
 
   public deleteLanguage (language : Language) {
-    console.log('delete language');
+    this.dialog.open(DialogComponent, { disableClose: true, data: {
+      msg: 'Deseja apagar?', leftButton: 'Cancelar', rightButton: 'OK'
+    }}).afterClosed().subscribe(resp => {
+      console.log('Apagado');
+    });
   }
 
 
