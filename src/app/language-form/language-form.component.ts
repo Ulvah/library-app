@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Language } from '../model/language';
 
 @Component({
   selector: 'app-language-form',
@@ -8,24 +9,29 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class LanguageFormComponent implements OnInit {
 
-  public actionName = 'Editar';
-  public languageForm: FormGroup;
+  @Input() public actionName = 'Editar';
+  public languageForm!: FormGroup;
+
+  @Output() closeModelEventEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Input() public editableLanguage!: Language;
 
   constructor(private formBuilder : FormBuilder) {
-    this.languageForm = this.formBuilder.group({
-      languageName : 'test'
-    });
+
    }
 
   ngOnInit(): void {
+    this.languageForm = this.formBuilder.group({
+      languageName : this.editableLanguage != null ? this.editableLanguage.languageName : ''
+    });
   }
 
   public save(){
-    console.log('salvar');
+    this.closeModelEventEmitter.emit(true);
   }
 
   public cancel(){
-    console.log('cancelar');
+    this.closeModelEventEmitter.emit(false);
   }
 
 }

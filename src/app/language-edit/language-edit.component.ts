@@ -17,16 +17,16 @@ export class LanguageEditComponent implements OnInit {
       if(dialogData.editableLanguage != null){
         this.editableLanguage = dialogData.editableLanguage;
       }
-
       if(dialogData.actionName != null) {
         this.actionName = dialogData.actionName;
       }
+
     }
 
   ngOnInit(): void {
   }
 
-  public closeModalWindow($event: any){
+  public closeModelWindow($event: any){
     //TODO: handle action -save/cancel
     //if($event) this.dialogRef.close();
     this.dialogRef.close($event);

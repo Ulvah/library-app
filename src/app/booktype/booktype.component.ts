@@ -26,14 +26,14 @@ export class BooktypeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public editBookType (inputBookType : Booktype) {
-    this.dialog.open(BooktypeEditComponent, { disableClose: true, data: { editableBooktype: inputBookType}
+  public editBooktype (inputBooktype : Booktype) {
+    this.dialog.open(BooktypeEditComponent, { disableClose: true, data: { editableBooktype: inputBooktype }
     }).afterClosed().subscribe(resp => {
       console.log('Editado');
     });
   }
 
-  public deleteBookType (bookType : Booktype) {
+  public deleteBooktype (booktype : Booktype) {
     this.dialog.open(DialogComponent, { disableClose: true, data: {
       msg: 'Deseja apagar?', leftButton: 'Cancelar', rightButton: 'OK'
     }}).afterClosed().subscribe(resp => {
@@ -42,8 +42,11 @@ export class BooktypeComponent implements OnInit {
   }
 
 
-  public createBookType(){
-    console.log('create booktype');
+  public createBooktype(){
+    this.dialog.open(BooktypeEditComponent, { disableClose: true, data: { actionName: 'Criar' }
+    }).afterClosed().subscribe(resp => {
+      console.log('Criar');
+    });
   }
 
 }

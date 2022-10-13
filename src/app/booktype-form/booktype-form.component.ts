@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Booktype } from '../model/booktype';
 
 @Component({
   selector: 'app-booktype-form',
@@ -8,24 +10,29 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class BooktypeFormComponent implements OnInit {
 
-  public actionName = 'Editar';
-  public booktypeForm: FormGroup;
+  @Input() public actionName = 'Editar';
+  public booktypeForm!: FormGroup;
+
+  @Output() closeModelEventEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Input() public editableBooktype!: Booktype;
 
   constructor(private formBuilder : FormBuilder) {
-    this.booktypeForm = this.formBuilder.group({
-      typeName : 'test'
-    });
+
   }
 
   ngOnInit(): void {
+    this.booktypeForm = this.formBuilder.group({
+      typeName : this.editableBooktype != null ? this.editableBooktype.typeName : ''
+    });
   }
 
   public save(){
-    console.log('salvar');
+    this.closeModelEventEmitter.emit(true);
   }
 
   public cancel(){
-    console.log('cancelar');
+    this.closeModelEventEmitter.emit(false);
   }
 
 }

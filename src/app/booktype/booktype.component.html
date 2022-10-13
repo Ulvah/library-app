@@ -27,8 +27,8 @@
           <th mat-header-cell *matHeaderCellDef> Acao </th>
           <td mat-cell *matCellDef="let element">
 
-            <button (click)="editBookType(element)" mat-raised-button color="accent" class="mr-10" >Editar</button>
-            <button (click)="deleteBookType(element)" mat-raised-button color="warn" >Apagar</button>
+            <button (click)="editBooktype(element)" mat-raised-button color="accent" class="mr-10" >Editar</button>
+            <button (click)="deleteBooktype(element)" mat-raised-button color="warn" >Apagar</button>
           </td>
         </ng-container>
 
@@ -41,7 +41,7 @@
     <mat-card-actions>
 
       <a mat-raised-button color="warn" [routerLink]="['/']">Home</a>
-      <a mat-raised-button color="warn" (click)="createBookType()">Criar Novo Tipo do Livro</a>
+      <a mat-raised-button color="warn" (click)="createBooktype()">Criar Novo Tipo do Livro</a>
 
     </mat-card-actions>
   </mat-card>

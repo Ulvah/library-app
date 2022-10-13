@@ -18,16 +18,16 @@ export class BooktypeEditComponent implements OnInit {
       if(dialogData.editableBooktype != null){
         this.editableBooktype = dialogData.editableBooktype;
       }
-
       if(dialogData.actionName != null) {
         this.actionName = dialogData.actionName;
       }
+
      }
 
   ngOnInit(): void {
   }
 
-  public closeModalWindow($event: any){
+  public closeModelWindow($event: any){
     //TODO: handle action -save/cancel
     //if($event) this.dialogRef.close();
     this.dialogRef.close($event);

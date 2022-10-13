@@ -42,7 +42,10 @@ export class LanguageComponent implements OnInit {
 
 
   public createLanguage(){
-    console.log('create language');
+    this.dialog.open(LanguageEditComponent, { disableClose: true, data: { actionName: 'Criar'}
+    }).afterClosed().subscribe(resp => {
+      console.log('criando');
+    });
   }
 
 }
