@@ -17,6 +17,8 @@ import { BooktypeEditComponent } from './booktype-edit/booktype-edit.component';
 import { LanguageEditComponent } from './language-edit/language-edit.component';
 import { LanguageFormComponent } from './language-form/language-form.component';
 import { BooktypeFormComponent } from './booktype-form/booktype-form.component';
+import { BooklistEditComponent } from './booklist-edit/booklist-edit.component';
+import { BooklistFormComponent } from './booklist-form/booklist-form.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { BooktypeFormComponent } from './booktype-form/booktype-form.component';
     BooktypeEditComponent,
     LanguageEditComponent,
     LanguageFormComponent,
-    BooktypeFormComponent
+    BooktypeFormComponent,
+    BooklistEditComponent,
+    BooklistFormComponent
 
   ],
   imports: [

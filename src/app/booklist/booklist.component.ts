@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { BooklistEditComponent } from '../booklist-edit/booklist-edit.component';
 import { BOOKTYPE_DATA } from '../booktype/booktype.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { LANGUAGE_DATA } from '../language/language.component';
@@ -34,10 +35,21 @@ export class BooklistComponent implements OnInit {
 
   public createNewLivro(){
 
+    this.dialog.open(BooklistEditComponent, {
+      disableClose: true, data: { actionName: 'Criar'}
+    }).afterClosed().subscribe( resp => {
+      console.log('Criar');
+    });
+
   }
 
   public updateLivro(book: Book) {
-    console.log("update");
+    this.dialog.open(BooklistEditComponent, {
+      disableClose: true, data: { updatableBook: book, actionName: 'Editar'}
+    }).afterClosed().subscribe( resp => {
+      console.log('editar');
+    });
+
   }
 
   public deleteLivro(book: Book) {
