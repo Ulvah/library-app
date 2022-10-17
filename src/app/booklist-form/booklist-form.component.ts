@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
-import { BOOKTYPE_DATA } from '../booktype/booktype.component';
-import { LANGUAGE_DATA } from '../language/language.component';
 import { Book } from '../model/book';
 import { Booktype } from '../model/booktype';
 import { Language } from '../model/language';
+import { BooktypeService } from '../services/booktype.service';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-booklist-form',
@@ -19,15 +19,28 @@ export class BooklistFormComponent implements OnInit {
 
   @ViewChild(FormGroupDirective) booklistFormGroupDirective! : FormGroupDirective;
 
-  public booktypes: Booktype[] = BOOKTYPE_DATA;
-  public languages: Language[] = LANGUAGE_DATA;
+  public booktypes: Booktype[] = [];
+  public languages: Language[] = [];
 
   public booklistForm! : FormGroup;
 
-  constructor(private formBuilder : FormBuilder) { }
+  constructor(private formBuilder : FormBuilder, private booktypeService: BooktypeService,
+    private languageService: LanguageService) { }
 
   ngOnInit(): void {
 
+    this.booktypeService.getAllBooktypes().subscribe((resp: Booktype[]) => {
+      this.booktypes = resp;
+    });
+
+    this.languageService.getAllLanguages().subscribe((resp: Language[]) => {
+      this.languages = resp;
+      this.createForm();
+    });
+
+  }
+
+  public createForm() {
     this.booklistForm = this.formBuilder.group(
       {
         isbn: [this.book != null? this.book.isbn : ''],
@@ -36,8 +49,7 @@ export class BooklistFormComponent implements OnInit {
         publisher: [this.book != null? this.book.publisher :''],
         booktype: [this.book != null? this.book.booktype : null],
         language: [this.book != null? this.book.language : null]
-      }
-      );
+      });
   }
 
   public clearForm(){

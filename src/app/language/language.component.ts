@@ -3,12 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { LanguageEditComponent } from '../language-edit/language-edit.component';
 import { Language } from '../model/language';
+import { LanguageService } from '../services/language.service';
 
-export const LANGUAGE_DATA = [
-  {languageName: 'Portuguese', guid: 'aaa-bbb-ccc-ddd'},
-  {languageName: 'Inglis', guid: 'aaa-bbb-ccc-ddd'}
 
-];
 
 @Component({
   selector: 'app-language',
@@ -18,11 +15,14 @@ export const LANGUAGE_DATA = [
 export class LanguageComponent implements OnInit {
 
   public displayedColumns: string[] = ['id', 'languageName', 'actions'];
-  public dataSource : Language[] = LANGUAGE_DATA;
+  public dataSource : Language[] = [];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private languageService: LanguageService) { }
 
   ngOnInit(): void {
+    this.languageService.getAllLanguages().subscribe((resp: Language[]) => {
+      this.dataSource = resp;
+    });
   }
 
   public editLanguage (inputLanguage : Language) {

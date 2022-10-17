@@ -1,20 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BooklistEditComponent } from '../booklist-edit/booklist-edit.component';
-import { BOOKTYPE_DATA } from '../booktype/booktype.component';
 import { DialogComponent } from '../dialog/dialog.component';
-import { LANGUAGE_DATA } from '../language/language.component';
 import { Book } from '../model/book';
-
-export const BOOKLIST_DATA = [
-  {guid: 'aaa-bbb-ccc-ddd',
-   isbn: '978-85-7605-117-6',
-   title: 'Algebra Linear',
-   writer: 'Alfredo Steinbruch e Paulo Winterle',
-   publisher: 'Pearson',
-   booktype: BOOKTYPE_DATA.find(x => x.typeName == 'Matematica'),
-   language: LANGUAGE_DATA.find(x => x.languageName == 'Portuguese') }
-];
+import { BooklistService } from '../services/booklist.service';
 
 
 @Component({
@@ -24,13 +13,18 @@ export const BOOKLIST_DATA = [
 })
 export class BooklistComponent implements OnInit {
 
-  public dataSource = BOOKLIST_DATA;
+  public dataSource: Book[] = [];
 
   public displayedColumns: string[] = ['id', 'isbn', 'title', 'writer', 'publisher', 'booktype', 'language', 'actions'];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private booklistService: BooklistService) { }
 
   ngOnInit(): void {
+
+    this.booklistService.getAllBooklist().subscribe((resp: Book[]) => {
+      this.dataSource = resp;
+    });
+
   }
 
   public createNewLivro(){

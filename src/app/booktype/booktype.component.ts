@@ -3,13 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BooktypeEditComponent } from '../booktype-edit/booktype-edit.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Booktype } from '../model/booktype';
-
-export const BOOKTYPE_DATA = [
-  {typeName: 'Matematica', guid: 'aaa-bbb-ccc-ddd'},
-  {typeName: 'quimico', guid: 'aaa-bbb-ccc-ddd'}
-
-];
-
+import { BooktypeService } from '../services/booktype.service';
 
 @Component({
   selector: 'app-booktype',
@@ -19,11 +13,14 @@ export const BOOKTYPE_DATA = [
 export class BooktypeComponent implements OnInit {
 
   public displayedColumns: string[] = ['id', 'typeName', 'actions'];
-  public dataSource : Booktype[] = BOOKTYPE_DATA;
+  public dataSource : Booktype[] = [];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private booktypeService: BooktypeService) { }
 
   ngOnInit(): void {
+    this.booktypeService.getAllBooktypes().subscribe((resp: Booktype[]) => {
+      this.dataSource = resp;
+    });
   }
 
   public editBooktype (inputBooktype : Booktype) {
