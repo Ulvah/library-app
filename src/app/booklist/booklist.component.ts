@@ -4,6 +4,7 @@ import { BooklistEditComponent } from '../booklist-edit/booklist-edit.component'
 import { DialogComponent } from '../dialog/dialog.component';
 import { Book } from '../model/book';
 import { BooklistService } from '../services/booklist.service';
+import { SnackBarService } from '../services/snack-bar.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class BooklistComponent implements OnInit {
 
   public displayedColumns: string[] = ['id', 'isbn', 'title', 'writer', 'publisher', 'booktype', 'language', 'actions'];
 
-  constructor(private dialog: MatDialog, private booklistService: BooklistService) { }
+  constructor(private dialog: MatDialog, private booklistService: BooklistService,
+              private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
 
@@ -32,7 +34,9 @@ export class BooklistComponent implements OnInit {
     this.dialog.open(BooklistEditComponent, {
       disableClose: true, data: { actionName: 'Criar'}
     }).afterClosed().subscribe( resp => {
-      console.log('Criar');
+      if (resp) {
+        this.snackBarService.showSnackBar('Criado com sucesso', 'OK');
+      }
     });
 
   }
@@ -41,7 +45,9 @@ export class BooklistComponent implements OnInit {
     this.dialog.open(BooklistEditComponent, {
       disableClose: true, data: { updatableBook: book, actionName: 'Editar'}
     }).afterClosed().subscribe( resp => {
-      console.log('editar');
+      if (resp) {
+        this.snackBarService.showSnackBar('Editado com sucesso', 'OK');
+      }
     });
 
   }
@@ -50,7 +56,9 @@ export class BooklistComponent implements OnInit {
     this.dialog.open(DialogComponent, { disableClose: true, data: {
       msg: 'Deseja apagar?', leftButton: 'Cancelar', rightButton: 'OK'
     }}).afterClosed().subscribe(resp => {
-      console.log('Apagado');
+      if (resp) {
+        this.snackBarService.showSnackBar('Apagado com sucesso', 'OK');
+      }
     });
   }
 

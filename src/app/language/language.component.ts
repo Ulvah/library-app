@@ -4,6 +4,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { LanguageEditComponent } from '../language-edit/language-edit.component';
 import { Language } from '../model/language';
 import { LanguageService } from '../services/language.service';
+import { SnackBarService } from '../services/snack-bar.service';
 
 
 
@@ -17,7 +18,8 @@ export class LanguageComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'languageName', 'actions'];
   public dataSource : Language[] = [];
 
-  constructor(private dialog: MatDialog, private languageService: LanguageService) { }
+  constructor(private dialog: MatDialog, private languageService: LanguageService,
+    private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
     this.languageService.getAllLanguages().subscribe((resp: Language[]) => {
@@ -28,7 +30,9 @@ export class LanguageComponent implements OnInit {
   public editLanguage (inputLanguage : Language) {
     this.dialog.open(LanguageEditComponent, { disableClose: true, data: { editableLanguage: inputLanguage}
     }).afterClosed().subscribe(resp => {
-      console.log('Editado');
+      if (resp) {
+        this.snackBarService.showSnackBar('Editado com sucesso', 'OK');
+      }
     });
   }
 
@@ -36,7 +40,9 @@ export class LanguageComponent implements OnInit {
     this.dialog.open(DialogComponent, { disableClose: true, data: {
       msg: 'Deseja apagar?', leftButton: 'Cancelar', rightButton: 'OK'
     }}).afterClosed().subscribe(resp => {
-      console.log('Apagado');
+      if (resp) {
+        this.snackBarService.showSnackBar('Apagada com sucesso', 'OK');
+      }
     });
   }
 
@@ -44,7 +50,9 @@ export class LanguageComponent implements OnInit {
   public createLanguage(){
     this.dialog.open(LanguageEditComponent, { disableClose: true, data: { actionName: 'Criar'}
     }).afterClosed().subscribe(resp => {
-      console.log('criando');
+      if (resp) {
+        this.snackBarService.showSnackBar('Criado com sucesso', 'OK');
+      }
     });
   }
 

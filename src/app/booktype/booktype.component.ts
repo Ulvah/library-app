@@ -4,6 +4,7 @@ import { BooktypeEditComponent } from '../booktype-edit/booktype-edit.component'
 import { DialogComponent } from '../dialog/dialog.component';
 import { Booktype } from '../model/booktype';
 import { BooktypeService } from '../services/booktype.service';
+import { SnackBarService } from '../services/snack-bar.service';
 
 @Component({
   selector: 'app-booktype',
@@ -15,7 +16,8 @@ export class BooktypeComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'typeName', 'actions'];
   public dataSource : Booktype[] = [];
 
-  constructor(private dialog: MatDialog, private booktypeService: BooktypeService) { }
+  constructor(private dialog: MatDialog, private booktypeService: BooktypeService,
+               private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
     this.booktypeService.getAllBooktypes().subscribe((resp: Booktype[]) => {
@@ -26,7 +28,9 @@ export class BooktypeComponent implements OnInit {
   public editBooktype (inputBooktype : Booktype) {
     this.dialog.open(BooktypeEditComponent, { disableClose: true, data: { editableBooktype: inputBooktype }
     }).afterClosed().subscribe(resp => {
-      console.log('Editado');
+      if (resp) {
+        this.snackBarService.showSnackBar('Editado com sucesso', 'OK');
+      }
     });
   }
 
@@ -34,7 +38,9 @@ export class BooktypeComponent implements OnInit {
     this.dialog.open(DialogComponent, { disableClose: true, data: {
       msg: 'Deseja apagar?', leftButton: 'Cancelar', rightButton: 'OK'
     }}).afterClosed().subscribe(resp => {
-      console.log('Apagado');
+      if (resp) {
+        this.snackBarService.showSnackBar('Apagada com sucesso', 'OK');
+      }
     });
   }
 
@@ -42,7 +48,9 @@ export class BooktypeComponent implements OnInit {
   public createBooktype(){
     this.dialog.open(BooktypeEditComponent, { disableClose: true, data: { actionName: 'Criar' }
     }).afterClosed().subscribe(resp => {
-      console.log('Criar');
+      if (resp) {
+        this.snackBarService.showSnackBar('Criada com sucesso', 'OK');
+      }
     });
   }
 
