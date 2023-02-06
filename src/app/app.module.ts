@@ -19,6 +19,7 @@ import { LanguageFormComponent } from './language-form/language-form.component';
 import { BooktypeFormComponent } from './booktype-form/booktype-form.component';
 import { BooklistEditComponent } from './booklist-edit/booklist-edit.component';
 import { BooklistFormComponent } from './booklist-form/booklist-form.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { BooklistFormComponent } from './booklist-form/booklist-form.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,

@@ -1,27 +1,46 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Book } from '../model/book';
-import { Booktype } from '../model/booktype';
 import { Language } from '../model/language';
-
-export const BOOKLIST_DATA = [
-  {guid: 'aaa-bbb-ccc-ddd',
-   isbn: '978-85-7605-117-6',
-   title: 'Algebra Linear',
-   writer: 'Alfredo Steinbruch e Paulo Winterle',
-   publisher: 'Pearson',
-   booktype: {guid: 'aaaa-bbbb-cccc-dddd', typeName:'Matematic'},
-   language: {guid:'aaaa-bbbb-cccc-dddd', languageName: 'Portuguese'}}
-];
 
 @Injectable({
   providedIn: 'root'
 })
 export class BooklistService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   public getAllBooklist(): Observable<Book[]>{
-    return of (BOOKLIST_DATA);
+    return this.httpClient.get<Book[]>('http://localhost:8080/api/v1/books');
   }
+
+  public getBookbyIsbn(isbn: String): Observable<Book>{
+    return this.httpClient.get<Book>('http://localhost:8080/api/v1/books/${isbn}');
+  }
+
+  public getBookbTitle(title: String): Observable<Book>{
+    return this.httpClient.get<Book>('http://localhost:8080/api/v1/books/${title}');
+  }
+
+  public getBookbyWriter(writer: String): Observable<Book>{
+    return this.httpClient.get<Book>('http://localhost:8080/api/v1/books/${writer}');
+  }
+
+  public getBookbyPublisher(publisher: String): Observable<Book>{
+    return this.httpClient.get<Book>('http://localhost:8080/api/v1/books/${publisher}');
+  }
+
+  public saveBook(book: Book): Observable<String>{
+    return this.httpClient.post<String>('http://localhost:8080/api/v1/books',book);
+  }
+
+  public updateBook(book: Book): Observable<void>{
+    return this.httpClient.put<void>('http://localhost:8080/api/v1/books',book);
+  }
+
+  public deleteBook(guid: String): Observable<void>{
+    return this.httpClient.delete<void>('http://localhost:8080/api/v1/books/${guid}');
+  }
+
 }
