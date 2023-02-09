@@ -10,7 +10,7 @@ export class LanguageService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getAllLanguage(): Observable<Language[]>{
+  public getAllLanguages(): Observable<Language[]>{
     return this.httpClient.get<Language[]>('http://localhost:8080/api/v1/languages');
   }
 

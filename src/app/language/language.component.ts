@@ -22,15 +22,23 @@ export class LanguageComponent implements OnInit {
     private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
-    this.languageService.getAllLanguages().subscribe((resp: Language[]) => {
-      this.dataSource = resp;
-    });
+    this.loadAllLanguage();
+  }
+
+  private loadAllLanguage() {
+    this.languageService.getAllLanguages().subscribe(
+      (resp: Language[]) => {
+        this.dataSource = resp;
+      }
+    );
   }
 
   public editLanguage (inputLanguage : Language) {
-    this.dialog.open(LanguageEditComponent, { disableClose: true, data: { editableLanguage: inputLanguage}
+    this.dialog.open(LanguageEditComponent, { disableClose: true,
+      data: { editableLanguage: inputLanguage}
     }).afterClosed().subscribe(resp => {
       if (resp) {
+        this.loadAllLanguage();
         this.snackBarService.showSnackBar('Editado com sucesso', 'OK');
       }
     });
@@ -41,19 +49,25 @@ export class LanguageComponent implements OnInit {
       msg: 'Deseja apagar?', leftButton: 'Cancelar', rightButton: 'OK'
     }}).afterClosed().subscribe(resp => {
       if (resp) {
-        this.snackBarService.showSnackBar('Apagada com sucesso', 'OK');
+        this.languageService.deleteLanguage(language.guid).subscribe(
+          (resp: any) => {
+            this.loadAllLanguage();
+            this.snackBarService.showSnackBar('Linguagem do livro apagado', 'OK');
+          }, (err: any) => {
+            this.snackBarService.showSnackBar('Não pode apagar linguagem do livro', 'OK');
+          }
+        )
       }
     });
   }
-
 
   public createLanguage(){
     this.dialog.open(LanguageEditComponent, { disableClose: true, data: { actionName: 'Criar'}
     }).afterClosed().subscribe(resp => {
       if (resp) {
+        this.loadAllLanguage();
         this.snackBarService.showSnackBar('Criado com sucesso', 'OK');
       }
     });
   }
-
 }

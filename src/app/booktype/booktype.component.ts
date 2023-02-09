@@ -20,15 +20,23 @@ export class BooktypeComponent implements OnInit {
                private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
-    this.booktypeService.getAllBooktypes().subscribe((resp: Booktype[]) => {
-      this.dataSource = resp;
-    });
+    this.loadAllBooktype();
+  }
+
+  private loadAllBooktype() {
+    this.booktypeService.getAllBooktypes().subscribe(
+      (resp: Booktype[]) => {
+        this.dataSource = resp;
+      }
+    );
   }
 
   public editBooktype (inputBooktype : Booktype) {
-    this.dialog.open(BooktypeEditComponent, { disableClose: true, data: { editableBooktype: inputBooktype }
+    this.dialog.open(BooktypeEditComponent, { disableClose: true,
+      data: { editableBooktype: inputBooktype }
     }).afterClosed().subscribe(resp => {
       if (resp) {
+        this.loadAllBooktype();
         this.snackBarService.showSnackBar('Editado com sucesso', 'OK');
       }
     });
@@ -39,16 +47,23 @@ export class BooktypeComponent implements OnInit {
       msg: 'Deseja apagar?', leftButton: 'Cancelar', rightButton: 'OK'
     }}).afterClosed().subscribe(resp => {
       if (resp) {
-        this.snackBarService.showSnackBar('Apagada com sucesso', 'OK');
+        this.booktypeService.deleteBooktype(booktype.guid).subscribe(
+          (resp: any) => {
+            this.loadAllBooktype();
+            this.snackBarService.showSnackBar('Tipo do livro apagado', 'OK');
+          }, (err: any) => {
+            this.snackBarService.showSnackBar('Não pode apagar tipo do livro', 'OK');
+          }
+        )
       }
     });
   }
-
 
   public createBooktype(){
     this.dialog.open(BooktypeEditComponent, { disableClose: true, data: { actionName: 'Criar' }
     }).afterClosed().subscribe(resp => {
       if (resp) {
+        this.loadAllBooktype();
         this.snackBarService.showSnackBar('Criada com sucesso', 'OK');
       }
     });
