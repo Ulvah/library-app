@@ -44,7 +44,7 @@ export class LanguageComponent implements OnInit {
     });
   }
 
-  public deleteLanguage (language : Language) {
+public deleteLanguage (language : Language) {
     this.dialog.open(DialogComponent, { disableClose: true, data: {
       msg: 'Deseja apagar?', leftButton: 'Cancelar', rightButton: 'OK'
     }}).afterClosed().subscribe(resp => {
@@ -60,6 +60,7 @@ export class LanguageComponent implements OnInit {
       }
     });
   }
+
 
   public createLanguage(){
     this.dialog.open(LanguageEditComponent, { disableClose: true, data: { actionName: 'Criar'}

@@ -23,6 +23,9 @@ export class LanguageService {
   }
 
   public deleteLanguage(guid: string): Observable<void>{
-    return this.httpClient.delete<void>('http://localhost:8080/api/v1/languages/${guid}');
+    console.log(guid);
+    return this.httpClient.delete<void>('http://localhost:8080/api/v1/languages/' +guid);
   }
+
+
 }

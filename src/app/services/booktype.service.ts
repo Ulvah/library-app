@@ -23,7 +23,7 @@ export class BooktypeService {
   }
 
   public deleteBooktype(guid: string): Observable<void>{
-    return this.httpClient.delete<void>('http://localhost:8080/api/v1/book-types/${guid}');
+    return this.httpClient.delete<void>('http://localhost:8080/api/v1/book-types/' +guid);
   }
 
 }
